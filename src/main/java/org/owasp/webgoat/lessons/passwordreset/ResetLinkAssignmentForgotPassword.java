@@ -102,6 +102,9 @@ public class ResetLinkAssignmentForgotPassword extends AssignmentEndpoint {
   }
 
   private void fakeClickingLinkEmail(String host, String resetLink) {
+    if (!isAuthorizedHost(host)) {
+        return;
+    }
     try {
       HttpHeaders httpHeaders = new HttpHeaders();
       HttpEntity httpEntity = new HttpEntity(httpHeaders);
