@@ -97,8 +97,10 @@ public class CommentsCache {
     var jc = JAXBContext.newInstance(Comment.class);
     var xif = XMLInputFactory.newInstance();
 
+    xif.setProperty(XMLInputFactory.SUPPORT_DTD, false); // Disable DTDs
     xif.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
     xif.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
+    xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false); // Disable external entities
 
     var xsr = xif.createXMLStreamReader(new StringReader(xml));
 
