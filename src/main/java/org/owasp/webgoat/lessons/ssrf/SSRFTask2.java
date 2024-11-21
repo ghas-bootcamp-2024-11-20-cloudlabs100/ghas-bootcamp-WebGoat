@@ -42,6 +42,9 @@ public class SSRFTask2 extends AssignmentEndpoint {
   @PostMapping("/SSRF/task2")
   @ResponseBody
   public AttackResult completed(@RequestParam String url) {
+    if (!isValidUrl(url)) {
+      return getFailedResult("Invalid URL");
+    }
     return furBall(url);
   }
 
@@ -67,6 +70,15 @@ public class SSRFTask2 extends AssignmentEndpoint {
     }
     var html = "<img class=\"image\" alt=\"image post\" src=\"images/cat.jpg\">";
     return getFailedResult(html);
+  }
+
+  private boolean isValidUrl(String url) {
+    try {
+      URL parsedUrl = new URL(url);
+      return "ifconfig.pro".equals(parsedUrl.getHost()) && "http".equals(parsedUrl.getProtocol());
+    } catch (MalformedURLException e) {
+      return false;
+    }
   }
 
   private AttackResult getFailedResult(String errorMsg) {
